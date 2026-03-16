@@ -5,7 +5,7 @@ export const Home = ({ loggedIn, username }) => (
       {loggedIn ? (
         <p>Welcome, {username}!</p>
       ) : (
-        <p>Welcome to the demo of AI testing automation haha</p>
+        <p>Please log in to continue.</p>
       )}
     </div>
   );

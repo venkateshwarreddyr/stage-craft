@@ -1,9 +1,9 @@
-const { Given, When, Then } = require("@cucumber/cucumber");
-const { expect } = require("@playwright/test");
-const { chromium } = require("playwright");
+import { Given, When, Then } from "@cucumber/cucumber";
+import { expect, Browser, Page } from "@playwright/test";
+import { chromium } from "playwright";
 
-let browser;
-let page;
+let browser: Browser;
+let page: Page;
 
 Given("the user is on the login page", async function () {
   browser = await chromium.launch();
@@ -22,7 +22,7 @@ When('the user clicks on the "Login" button', async function () {
 
 Then(
   "an error message {string} should be displayed",
-  async function (errorMessage) {
+  async function (errorMessage: string) {
     await expect(page.locator(".error")).toHaveText(errorMessage);
   }
 );
@@ -31,21 +31,7 @@ Then("the user should remain on the login page", async function () {
   await expect(page).toHaveURL("http://localhost:3000/login");
 });
 
-// Optionally, check if the login fields are cleared or retain the entered data
-// Uncomment the following lines based on your application's design
-
-// Then('the login fields should be cleared', async function () {
-//   await expect(page.locator('input[name="username"]')).toBeEmpty();
-//   await expect(page.locator('input[name="password"]')).toBeEmpty();
-// });
-
 Then("the login fields should retain the entered data", async function () {
-  await expect(page.locator('input[name="username"]')).toHaveValue(
-    "invalidUser"
-  );
-  await expect(page.locator('input[name="password"]')).toHaveValue(
-    "invalidPass"
-  );
+  await expect(page.locator('input[name="username"]')).toHaveValue("user3");
+  await expect(page.locator('input[name="password"]')).toHaveValue("password3");
 });
-
-// more here
